@@ -114,7 +114,6 @@ class PLNavi extends PageLinesSection {
 					'menu' => $menu,
 					'menu_class'	=> 'inline-list pl-nav sf-menu',
 					'attr'			=> $offset,
-					'walker' => new PageLines_Walker_Nav_Menu
 				);
 				echo pl_navigation( $menu_args );
 
