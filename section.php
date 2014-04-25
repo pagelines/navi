@@ -11,13 +11,6 @@
 
 class PLNavi extends PageLinesSection {
 
-	function section_styles(){
-
-
-		wp_enqueue_script( 'superfish', $this->base_url.'/superfish.js', array( 'jquery' ), pl_get_cache_key(), true );
-		wp_enqueue_script( 'pl-navi', $this->base_url.'/pl.navi.js', array( 'superfish' ), pl_get_cache_key(), true );
-
-	}
 
 	function section_persistent(){
 		register_nav_menus( array( 'navi_nav' => __( 'Navi Section', 'pagelines' ) ) );
