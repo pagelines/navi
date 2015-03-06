@@ -41,6 +41,12 @@ class PLNavi extends PageLinesSection {
 						'key'		=> 'navi_logo_disable',
 						'label'		=> __( 'Disable Logo?', 'pagelines' ),
 						'default'	=> false
+					),
+					array(
+						'type'		=> 'check',
+						'key'		=> 'navi_site_info',
+						'label'		=> __( 'Show site title and tagline? (Logo must be disabled)', 'pagelines' ),
+						'default'	=> false
 					)
 				)
 
@@ -92,12 +98,28 @@ class PLNavi extends PageLinesSection {
 		$hide_search = ( $this->opt('navi_search') ) ? true : false;
 		$class = ( $this->meta['draw'] == 'area' ) ? 'pl-content' : '';
 
+		$blog_name = get_bloginfo( 'name' );
+		$blog_tagline = get_bloginfo( 'description' );
+
+		$hide_logo = ( $this->opt('navi_logo_disable') ) ? $this->opt('navi_logo_disable') : false;
+		$show_site_info = ( $this->opt('navi_site_info') ) ? $this->opt('navi_site_info') : false;
+
+		$logo_container_class = ( $this->opt('navi_logo_disable') ) ? ' ' : 'navi-container';
+
 	?>
 	<div class="navi-wrap <?php echo $class; ?> fix">
-		<div class="navi-left navi-container">
-			<?php if( '1' !== $this->opt( 'navi_logo_disable' ) ): ?>
+		<div class="navi-left <?php echo $logo_container_class; ?>">
+
+			<?php if( '1' !== $hide_logo ) { ?>
+				
 				<a href="<?php echo home_url('/');?>"><?php echo $this->image( 'navi_logo', pl_get_theme_logo(), array(), get_bloginfo('name')); ?></a>
-			<?php endif; ?>
+			
+			<?php } else if ( '1' == $show_site_info ) { ?>
+				
+				<a href="<?php echo home_url('/');?>"><h1 class="navi-site-title"><?php echo $blog_name; ?></h1></a>
+				<h2 class="navi-site-description"><?php echo $blog_tagline; ?></h2>
+
+			<?php } ?>
 		</div>
 		<div class="navi-right">
 			<?php
